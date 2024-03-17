@@ -75,5 +75,27 @@ return require('packer').startup(function(use)
 
   use("folke/zen-mode.nvim")
   use("laytan/cloak.nvim")
+  use {
+    "ggandor/leap.nvim",
+  }
+  use {
+    'cameron-wags/rainbow_csv.nvim',
+    config = true,
+    ft = {
+        'csv',
+        'tsv',
+        'csv_semicolon',
+        'csv_whitespace',
+        'csv_pipe',
+        'rfc_csv',
+        'rfc_semicolon'
+    },
+    cmd = {
+        'RainbowDelim',
+        'RainbowDelimSimple',
+        'RainbowDelimQuoted',
+        'RainbowMultiDelim'
+    }
+  }
 
 end)
