@@ -106,6 +106,7 @@ return require('packer').startup(function(use)
             require("heirline").setup({})
         end
     }
+    -- Side pane for file navigation
     use {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
@@ -115,5 +116,41 @@ return require('packer').startup(function(use)
             "MunifTanjim/nui.nvim",
             -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
         }
+    }
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup({
+                ---Add a space b/w comment and the line
+                padding = true,
+                ---Whether the cursor should stay at its position
+                sticky = true,
+            })
+        end
+    }
+    use {
+        "akinsho/toggleterm.nvim",
+        cmd = { "ToggleTerm", "TermExec" },
+        opts = {
+            highlights = {
+                Normal = { link = "Normal" },
+                NormalNC = { link = "NormalNC" },
+                NormalFloat = { link = "NormalFloat" },
+                FloatBorder = { link = "FloatBorder" },
+                StatusLine = { link = "StatusLine" },
+                StatusLineNC = { link = "StatusLineNC" },
+                WinBar = { link = "WinBar" },
+                WinBarNC = { link = "WinBarNC" },
+            },
+            size = 10,
+            on_create = function()
+                vim.opt.foldcolumn = "0"
+                vim.opt.signcolumn = "no"
+            end,
+            open_mapping = [[<F7>]],
+            shading_factor = 2,
+            direction = "float",
+            float_opts = { border = "rounded" },
+        },
     }
 end)
