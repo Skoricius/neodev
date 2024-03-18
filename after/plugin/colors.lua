@@ -47,4 +47,6 @@ require("catppuccin").setup({
 })
 
 -- setup must be called before loading
-vim.cmd.colorscheme "catppuccin"
+if vim.g.vscode == nil then
+    vim.cmd.colorscheme "catppuccin"
+end

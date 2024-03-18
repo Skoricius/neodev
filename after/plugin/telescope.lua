@@ -1,3 +1,4 @@
+if vim.g.vscode == nil then
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>ls', require("telescope.builtin").lsp_document_symbols, {})
@@ -21,3 +22,4 @@ require('telescope').setup {
         },
     },
 }
+end

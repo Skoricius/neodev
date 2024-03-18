@@ -1,3 +1,4 @@
+if vim.g.vscode == nil then
 vim.keymap.set("n", "<leader>e",  vim.cmd.Neotree)
 require("neo-tree").setup({
     close_if_last_window = true,     -- Close Neo-tree if it is the last window left in the tab
@@ -267,3 +268,4 @@ require("neo-tree").setup({
         }
     }
 })
+end
