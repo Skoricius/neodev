@@ -38,7 +38,7 @@ if vim.g.vscode == nil then
     })
 
     lsp.set_preferences({
-        suggest_lsp_servers = true,
+        suggest_lsp_servers = false,
         sign_icons = {
             error = 'E',
             warn = 'W',
