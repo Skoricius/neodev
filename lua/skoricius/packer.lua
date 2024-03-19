@@ -2,7 +2,8 @@
 
 -- Only required if you have packer configured as `opt`
 vim.cmd.packadd('packer.nvim')
-local vscode_cond = vim.g.vscode == nil
+local vscode_cond = vim.g.vscode ~= nil
+-- print("Vscode: ", vscode_cond)
 
 return require('packer').startup(function(use)
     -- Packer can manage itself
@@ -38,9 +39,9 @@ return require('packer').startup(function(use)
         end,
         disable = vscode_cond
     }
-    use{"theprimeagen/harpoon",
+    use { "theprimeagen/harpoon",
         disable = vscode_cond
-}
+    }
     use({
         "kdheepak/lazygit.nvim",
         -- optional for floating window border decoration
@@ -74,6 +75,14 @@ return require('packer').startup(function(use)
             -- Snippets
             { 'L3MON4D3/LuaSnip' },
             { 'rafamadriz/friendly-snippets' },
+        },
+        disable = vscode_cond
+    }
+    use {
+        "nvimdev/guard.nvim",
+        -- Builtin configuration, optional
+        requires = {
+            {"nvimdev/guard-collection"},
         },
         disable = vscode_cond
     }
