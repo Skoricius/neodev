@@ -15,6 +15,12 @@ return require('packer').startup(function(use)
         requires = { { 'nvim-lua/plenary.nvim' } },
         disable = vscode_cond
     }
+    use {
+        "nvim-telescope/telescope-frecency.nvim",
+        config = function()
+            require("telescope").load_extension "frecency"
+        end,
+    }
 
 
     use { "catppuccin/nvim", as = "catppuccin", disable = vscode_cond }
@@ -82,7 +88,7 @@ return require('packer').startup(function(use)
         "nvimdev/guard.nvim",
         -- Builtin configuration, optional
         requires = {
-            {"nvimdev/guard-collection"},
+            { "nvimdev/guard-collection" },
         },
         disable = vscode_cond
     }

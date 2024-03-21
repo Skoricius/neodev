@@ -54,4 +54,4 @@ vim.keymap.set("n", "<C-l>", "<C-w>l")
 
 -- saving and quitting files
 vim.keymap.set("n", "<C-s>", "<cmd>w!<cr>")
-vim.keymap.set("n", "<C-q>", "<cmd>q<cr>")
+vim.keymap.set("n", "<C-q>", "<C-w>c")
