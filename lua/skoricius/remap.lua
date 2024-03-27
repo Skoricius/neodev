@@ -1,5 +1,6 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("i", "jj", "<C-c>")
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -55,3 +56,4 @@ vim.keymap.set("n", "<C-l>", "<C-w>l")
 -- saving and quitting files
 vim.keymap.set("n", "<C-s>", "<cmd>w!<cr>")
 vim.keymap.set("n", "<C-q>", "<C-w>c")
+
