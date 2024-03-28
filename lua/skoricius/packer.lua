@@ -17,9 +17,6 @@ return require('packer').startup(function(use)
     }
     use {
         "nvim-telescope/telescope-frecency.nvim",
-        config = function()
-            require("telescope").load_extension "frecency"
-        end,
     }
 
 

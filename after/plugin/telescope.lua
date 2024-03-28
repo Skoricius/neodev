@@ -39,12 +39,15 @@ if vim.g.vscode == nil then
             },
             path_display = filenameFirst,
         },
-        frecency = {
-            show_score = true,
-            show_unindexed = true,
-            ignore_patterns = { "*.git/*", "*/tmp/*" },
-            disable_devicons = false,
-        },
+        extensions = {
+            frecency = {
+                show_score = false,
+                show_unindexed = true,
+                ignore_patterns = { "*.git/*", "*/tmp/*" },
+                disable_devicons = false,
+                path_display = filenameFirst,
+            }
+        }
         -- pickers = {
         --     find_files = {
         --         path_display = filenameFirst,
@@ -57,4 +60,5 @@ if vim.g.vscode == nil then
         --     }
         -- }
     }
+    require("telescope").load_extension "frecency"
 end
