@@ -168,4 +168,12 @@ return require('packer').startup(function(use)
         -- Uncomment next line if you want to follow only stable versions
         -- tag = "*"
     }
+    use {
+        'rmagatti/auto-session',
+        config = function()
+            require("auto-session").setup {
+                log_level = "error",
+            }
+        end
+    }
 end)

@@ -26,3 +26,17 @@ vim.opt.updatetime = 50
 vim.opt.wrap = false
 
 vim.opt.colorcolumn = "89"
+vim.opt.title = true
+local titlestring = ""
+titlestring = titlestring .. "%{substitute(getcwd(),$HOME,'~','')}"
+titlestring = titlestring .. " - %t"
+vim.opt.titlestring = titlestring
+-- " Nice window title
+-- if has('title') && (has('gui_running') || &title)
+--     set titlestring=
+--     set titlestring+=%f\                                              " file name
+--     set titlestring+=%h%m%r%w                                         " flags
+--     set titlestring+=\ -\ %{v:progname}                               " program name
+--     set titlestring+=\ -\ %{substitute(getcwd(),\ $HOME,\ '~',\ '')}  " working directory
+-- endif
+
