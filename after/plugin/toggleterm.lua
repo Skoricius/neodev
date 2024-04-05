@@ -7,7 +7,7 @@ if vim.g.vscode == nil then
     vim.keymap.set("n", "<F7>", "<cmd>ToggleTerm<cr>")
     vim.keymap.set("t", "<F7>", "<cmd>ToggleTerm<cr>")
 
-    vim.keymap.set('t', "<esc>", "<C-\\><C-n>")
+    vim.keymap.set('t', "<C-[>", "<C-\\><C-n>")
     vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]])
     vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]])
     vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]])
