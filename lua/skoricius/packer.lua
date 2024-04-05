@@ -176,4 +176,7 @@ return require('packer').startup(function(use)
             }
         end
     }
+    use {
+        "ojroques/vim-oscyank"
+    }
 end)
