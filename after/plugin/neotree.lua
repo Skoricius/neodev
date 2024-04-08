@@ -1,5 +1,6 @@
 if vim.g.vscode == nil then
 vim.keymap.set("n", "<leader>e",  "<cmd>Neotree toggle<cr>")
+-- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 require("neo-tree").setup({
     close_if_last_window = true,     -- Close Neo-tree if it is the last window left in the tab
     popup_border_style = "rounded",

@@ -138,6 +138,9 @@ return require('packer').startup(function(use)
             "MunifTanjim/nui.nvim",
             -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
         },
+        opts = {
+            auto_clean_after_session_restore = true,
+        },
         disable = vscode_cond
     }
     use {
@@ -173,10 +176,14 @@ return require('packer').startup(function(use)
         config = function()
             require("auto-session").setup {
                 log_level = "error",
+                pre_save_cmds = { 'Neotree close' },
+                post_restore_cmds = { 'Neotree filesystem show' },
             }
-        end
+        end,
+        disable = vscode_cond
     }
     use {
-        "ojroques/vim-oscyank"
+        "ojroques/vim-oscyank",
+        disable = vscode_cond
     }
 end)
