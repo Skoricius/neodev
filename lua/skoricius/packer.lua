@@ -171,17 +171,17 @@ return require('packer').startup(function(use)
         -- Uncomment next line if you want to follow only stable versions
         -- tag = "*"
     }
-    use {
-        'rmagatti/auto-session',
-        config = function()
-            require("auto-session").setup {
-                log_level = "error",
-                pre_save_cmds = { 'Neotree close' },
-                post_restore_cmds = { 'Neotree filesystem show' },
-            }
-        end,
-        disable = vscode_cond
-    }
+    -- use {
+    --     'rmagatti/auto-session',
+    --     config = function()
+    --         require("auto-session").setup {
+    --             log_level = "error",
+    --             pre_save_cmds = { 'Neotree close' },
+    --             post_restore_cmds = { 'Neotree filesystem show' },
+    --         }
+    --     end,
+    --     disable = vscode_cond
+    -- }
     use {
         "ojroques/vim-oscyank",
         disable = vscode_cond
