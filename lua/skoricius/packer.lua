@@ -192,6 +192,12 @@ return require('packer').startup(function(use)
             -- your configuration comes here
             -- or leave it empty to use the default settings
             -- refer to the configuration section below
-        }
+        },
+        disable = vscode_cond
+    }
+    -- Plugin for interactively running Python scripts
+    use { 'dccsillag/magma-nvim',
+        run = ':UpdateRemotePlugins',
+        disable = vscode_cond
     }
 end)
