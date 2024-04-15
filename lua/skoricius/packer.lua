@@ -205,5 +205,5 @@ return require('packer').startup(function(use)
     --         vim.g.molten_output_win_max_height = 12
     --     end,
     -- }
-    use { 'Vigemus/iron.nvim' }
+    use { 'Vigemus/iron.nvim', disable = vscode_cond }
 end)
