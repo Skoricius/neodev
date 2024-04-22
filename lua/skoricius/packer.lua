@@ -182,6 +182,7 @@ return require('packer').startup(function(use)
     --     end,
     --     disable = vscode_cond
     -- }
+    -- yanking over ssh
     use {
         "ojroques/vim-oscyank",
         disable = vscode_cond
