@@ -41,11 +41,21 @@ if vim.g.vscode == nil then
         },
         extensions = {
             frecency = {
-                show_score = false,
+                show_score = true,
                 show_unindexed = true,
                 ignore_patterns = { "*.git/*", "*/tmp/*" },
                 disable_devicons = false,
                 path_display = filenameFirst,
+                recency_values = {
+                    { age = 1,    value = 500 }, -- past 20 mins
+                    { age = 20,    value = 300 }, -- past 20 mins
+                    { age = 240,    value = 100 }, -- past 4 hours
+                    { age = 1440,   value = 80 }, -- past day
+                    { age = 4320,   value = 60 }, -- past 3 days
+                    { age = 10080,  value = 40 }, -- past week
+                    { age = 43200,  value = 20 }, -- past month
+                    { age = 129600, value = 10 }, -- past 90 days
+                }
             }
         }
         -- pickers = {
