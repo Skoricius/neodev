@@ -31,13 +31,13 @@ if vim.g.vscode == nil then
         require("neotest").run.run
     )
     vim.keymap.set("n", "<leader>yf",
-        '<cmd>lua require("neotest").run.run(vim.fn.expand("%"))<cr>'
+        function() require("neotest").run.run(vim.fn.expand("%")) end
     )
     vim.keymap.set("n", "<leader>ys",
         require("neotest").run.stop
     )
     vim.keymap.set("n", "<leader>yd",
-        '<cmd>lua require("neotest").run.run({ strategy = "dap" })<cr>'
+        function() require("neotest").run.run({ strategy = "dap" }) end
     )
     vim.keymap.set("n", "<leader>yp",
         require("neotest").output_panel.toggle
@@ -46,7 +46,7 @@ if vim.g.vscode == nil then
         require("neotest").summary.toggle
     )
     vim.keymap.set("n", "<leader>yo",
-        '<cmd>lua require("neotest").output.open({ enter = true })<cr>'
+        function() require("neotest").output.open({ enter = true }) end
     )
     vim.keymap.set("n", "<leader>ya",
         require("neotest").run.attach
