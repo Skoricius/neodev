@@ -223,4 +223,8 @@ return require('packer').startup(function(use)
     use { "nvim-neotest/neotest-python",
         disable = vscode_cond,
     }
+    use {
+        "sindrets/diffview.nvim",
+        disable = vscode_cond,
+    }
 end)
