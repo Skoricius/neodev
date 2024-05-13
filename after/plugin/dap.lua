@@ -3,6 +3,7 @@ if vim.g.vscode == nil then
     vim.keymap.set('n', '<leader>dc', function() require('dap').continue() end)
     vim.keymap.set('n', '<leader>dt', function() require('dap').terminate() end)
     vim.keymap.set('n', '<leader>dR', function() require('dap').restart() end)
+    vim.keymap.set('n', '<leader>dt', function() require('dap').terminate() end)
     vim.keymap.set('n', '<leader>dn', function() require('dap').step_over() end)
     vim.keymap.set('n', '<leader>di', function() require('dap').step_into() end)
     vim.keymap.set('n', '<leader>do', function() require('dap').step_out() end)
