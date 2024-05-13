@@ -2,9 +2,12 @@ if vim.g.vscode == nil then
     local ft = require('guard.filetype')
 
     -- Assuming you have guard-collection
-    ft('python'):fmt('black')
+    -- ft('python'):fmt('black')
+    --     :append('isort')
+    --     :lint('pylint')
+    ft('python'):fmt('autopep8')
         :append('isort')
-        :lint('pylint')
+        -- :lint('pylint')
 
     -- Call setup() LAST!
     require('guard').setup({
