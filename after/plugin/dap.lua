@@ -27,4 +27,6 @@ if vim.g.vscode == nil then
       widgets.centered_float(widgets.scopes)
     end)
     vim.fn.sign_define('DapBreakpoint', {text='🟠', texthl='', linehl='', numhl=''})
+
+    vim.keymap.set('n', '<leader>du', require('dapui').toggle)
 end

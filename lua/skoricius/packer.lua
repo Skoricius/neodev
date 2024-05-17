@@ -227,4 +227,11 @@ return require('packer').startup(function(use)
         "sindrets/diffview.nvim",
         disable = vscode_cond,
     }
+    use { "rcarriga/nvim-dap-ui",
+        config = function()
+            require('dapui').setup({ })
+        end,
+    requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+        disable = vscode_cond
+}
 end)
