@@ -1,12 +1,20 @@
 if vim.g.vscode == nil then
     local ft = require('guard.filetype')
 
+    local cwd = vim.fn.getcwd(-1, -1)
+    local project_folder = cwd:match("/.*/(.*)")
+    -- print(project_folder)
     -- Assuming you have guard-collection
     -- ft('python'):fmt('black')
     --     :append('isort')
     --     :lint('pylint')
-    ft('python'):fmt('autopep8')
-        :append('isort')
+    if project_folder == "qecf" then
+        ft('python'):fmt('autopep8')
+            :append('isort')
+    else
+        ft('python'):fmt('black')
+            :append('isort')
+    end
         -- :lint('pylint')
 
     -- Call setup() LAST!
