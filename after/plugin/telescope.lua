@@ -38,12 +38,17 @@ if vim.g.vscode == nil then
                 preview_cutoff = 120,
             },
             path_display = filenameFirst,
+            file_ignore_patterns = {
+              '*.bak/',
+              '.git/',
+              '.vscode/',
+            },
         },
         extensions = {
             frecency = {
-                show_score = true,
+                show_score = false,
                 show_unindexed = true,
-                ignore_patterns = { "*.git/*", "*/tmp/*" },
+                -- ignore_patterns = { "*.git/*", "*/tmp/*" },
                 disable_devicons = false,
                 path_display = filenameFirst,
                 recency_values = {
@@ -57,18 +62,18 @@ if vim.g.vscode == nil then
                     { age = 129600, value = 10 }, -- past 90 days
                 }
             }
+        },
+        pickers = {
+            find_files = {
+                path_display = filenameFirst,
+            },
+            git_files = {
+                path_display = filenameFirst,
+            },
+            frecency = {
+                path_display = filenameFirst,
+            }
         }
-        -- pickers = {
-        --     find_files = {
-        --         path_display = filenameFirst,
-        --     },
-        --     git_files = {
-        --         path_display = filenameFirst,
-        --     },
-        --     frecency = {
-        --         path_display = filenameFirst,
-        --     }
-        -- }
     }
     require("telescope").load_extension "frecency"
 end
