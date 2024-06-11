@@ -7,8 +7,8 @@ if vim.g.vscode == nil then
         enable_git_status = true,
         enable_diagnostics = true,
         open_files_do_not_replace_types = { "terminal", "trouble", "qf" }, -- when opening files, do not use windows containing these filetypes or buftypes
-        sort_case_insensitive = false,                                 -- used when sorting files and directories in the tree
-        sort_function = nil,                                           -- use a custom function for sorting files and directories in the tree
+        sort_case_insensitive = false,                                     -- used when sorting files and directories in the tree
+        sort_function = nil,                                               -- use a custom function for sorting files and directories in the tree
         -- sort_function = function (a,b)
         --       if a.type == b.type then
         --           return a.path > b.path
@@ -91,7 +91,26 @@ if vim.g.vscode == nil then
         -- A list of functions, each representing a global custom command
         -- that will be available in all sources (if not overridden in `opts[source_name].commands`)
         -- see `:h neo-tree-custom-commands-global`
-        commands = {},
+        commands = {
+            system_open = function(state)
+                local node = state.tree:get_node()
+                local path = node:get_id()
+                -- macOs: open file in default application in the background.
+                vim.fn.jobstart({ "open", path }, { detach = true })
+                -- Linux: open file in default application
+                -- vim.fn.jobstart({ "xdg-open", path }, { detach = true })
+
+                -- -- Windows: Without removing the file from the path, it opens in code.exe instead of explorer.exe
+                -- local p
+                -- local lastSlashIndex = path:match("^.+()\\[^\\]*$") -- Match the last slash and everything before it
+                -- if lastSlashIndex then
+                --     p = path:sub(1, lastSlashIndex - 1)           -- Extract substring before the last slash
+                -- else
+                --     p = path                                      -- If no slash found, return original path
+                -- end
+                -- vim.cmd("silent !start explorer " .. p)
+            end,
+        },
         window = {
             position = "left",
             width = 40,
@@ -100,6 +119,7 @@ if vim.g.vscode == nil then
                 nowait = true,
             },
             mappings = {
+                ["e"] = "system_open",
                 ["<space>"] = {
                     "toggle_node",
                     nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
@@ -214,11 +234,11 @@ if vim.g.vscode == nil then
                 },
             },
             follow_current_file = {
-                enabled = true,                -- This will find and focus the file in the active buffer every time
+                enabled = true,                     -- This will find and focus the file in the active buffer every time
                 --               -- the current file is changed while the tree is open.
-                leave_dirs_open = false,        -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+                leave_dirs_open = false,            -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
             },
-            group_empty_dirs = false,           -- when true, empty folders will be grouped together
+            group_empty_dirs = false,               -- when true, empty folders will be grouped together
             hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
             -- in whatever position is specified in window.position
             -- "open_current",  -- netrw disabled, opening a directory opens within the
@@ -260,11 +280,11 @@ if vim.g.vscode == nil then
         },
         buffers = {
             follow_current_file = {
-                enabled = true,      -- This will find and focus the file in the active buffer every time
+                enabled = true,          -- This will find and focus the file in the active buffer every time
                 --              -- the current file is changed while the tree is open.
                 leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
             },
-            group_empty_dirs = true, -- when true, empty folders will be grouped together
+            group_empty_dirs = true,     -- when true, empty folders will be grouped together
             show_unloaded = true,
             window = {
                 mappings = {
