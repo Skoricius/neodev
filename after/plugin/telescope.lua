@@ -1,6 +1,8 @@
 if vim.g.vscode == nil then
     local builtin = require('telescope.builtin')
     vim.keymap.set('n', '<leader>ff', builtin.git_files, {})
+    vim.keymap.set('n', '<leader>fa', function() builtin.find_files({no_ignore=true, no_ignore_parent=true}) end, {})
+    vim.keymap.set('n', '<C-f>', builtin.current_buffer_fuzzy_find, {})
     vim.keymap.set('n', '<leader>ls', require("telescope.builtin").lsp_document_symbols, {})
     vim.keymap.set('n', '<C-p>', "<Cmd>Telescope frecency workspace=CWD<CR> ", {})
     vim.keymap.set('n', '<leader>fs', builtin.live_grep, {})
@@ -27,9 +29,10 @@ if vim.g.vscode == nil then
 
     require('telescope').setup {
         defaults = {
-            git_worktrees = vim.g.git_worktrees,
+            -- git_worktrees = vim.g.git_worktrees,
             -- path_display = { "shorten" },
             sorting_strategy = "ascending",
+            ignore_patterns = { "*.git/*", "*/tmp/*" },
             layout_config = {
                 horizontal = { prompt_position = "top", preview_width = 0.55 },
                 vertical = { mirror = false },
@@ -52,14 +55,14 @@ if vim.g.vscode == nil then
                 disable_devicons = false,
                 path_display = filenameFirst,
                 recency_values = {
-                    { age = 1,    value = 500 }, -- past 20 mins
-                    { age = 20,    value = 300 }, -- past 20 mins
+                    { age = 1,      value = 500 }, -- past 20 mins
+                    { age = 20,     value = 300 }, -- past 20 mins
                     { age = 240,    value = 100 }, -- past 4 hours
-                    { age = 1440,   value = 80 }, -- past day
-                    { age = 4320,   value = 60 }, -- past 3 days
-                    { age = 10080,  value = 40 }, -- past week
-                    { age = 43200,  value = 20 }, -- past month
-                    { age = 129600, value = 10 }, -- past 90 days
+                    { age = 1440,   value = 80 },  -- past day
+                    { age = 4320,   value = 60 },  -- past 3 days
+                    { age = 10080,  value = 40 },  -- past week
+                    { age = 43200,  value = 20 },  -- past month
+                    { age = 129600, value = 10 },  -- past 90 days
                 }
             }
         },
