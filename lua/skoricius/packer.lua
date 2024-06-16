@@ -21,6 +21,7 @@ return require('packer').startup(function(use)
 
 
     use { "catppuccin/nvim", as = "catppuccin", disable = vscode_cond }
+    use { "navarasu/onedark.nvim", disable = vscode_cond }
     use({
         "folke/trouble.nvim",
         config = function()

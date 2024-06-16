@@ -49,4 +49,8 @@ require("catppuccin").setup({
 -- setup must be called before loading
 if vim.g.vscode == nil then
     vim.cmd.colorscheme "catppuccin"
+    -- require('onedark').setup {
+    --     style = 'deep'
+    -- }
+    -- require('onedark').load()
 end
