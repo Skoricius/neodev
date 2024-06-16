@@ -16,7 +16,7 @@ if vim.g.vscode == nil then
             :append('isort')
     end
         -- :lint('pylint')
-    ft('typescript,javascript,typescriptreact'):fmt('prettier')
+    ft('typescript,javascript,typescriptreact,solidity'):fmt('prettier')
 
     -- Call setup() LAST!
     require('guard').setup({
