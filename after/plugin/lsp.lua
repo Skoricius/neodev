@@ -21,17 +21,23 @@ if vim.g.vscode == nil then
             ['rust_analyzer'] = { 'rust' },
         }
     })
+    local luasnip = require("luasnip")
     local cmp = require('cmp')
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
-    local cmp_mappings = lsp.defaults.cmp_mappings({
+    local cmp_mappings_settings = {
         ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
         ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
         ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+        ['<Tab>'] = cmp.mapping.confirm({ select = true }),
         ["<C-m>"] = cmp.mapping.complete(),
-    })
-
-    -- cmp_mappings['<Tab>'] = nil
-    cmp_mappings['<S-Tab>'] = nil
+        ["<CR>"] = cmp.config.disable,
+        ["<Right>"] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+        }),
+    }
+    local cmp_mappings = lsp.defaults.cmp_mappings(cmp_mappings_settings)
+    cmp.setup({mapping = cmp.mapping.preset.insert(cmp_mappings_settings)})
 
     lsp.setup_nvim_cmp({
         mapping = cmp_mappings
