@@ -17,6 +17,7 @@ return require('packer').startup(function(use)
     }
     use {
         "nvim-telescope/telescope-frecency.nvim",
+        disable = vscode_cond
     }
 
 
@@ -232,7 +233,7 @@ return require('packer').startup(function(use)
         config = function()
             require('dapui').setup({ })
         end,
-    requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+        requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
         disable = vscode_cond
 }
 end)
