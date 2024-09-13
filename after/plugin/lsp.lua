@@ -32,7 +32,9 @@ if vim.g.vscode == nil then
         ['<C-y>'] = cmp.mapping.confirm({ select = true }),
         ['<Tab>'] = cmp.mapping.confirm({ select = true }),
         ["<C-m>"] = cmp.mapping.complete(),
-        ["<CR>"] = cmp.config.disable,
+        ["<C-e>"] = cmp.mapping.close(),
+        ["<Esc>"] = cmp.mapping.close(),
+        -- ["<CR>"] = cmp.config.disable, lsp
         ["<Right>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
