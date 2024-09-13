@@ -1,8 +1,5 @@
 
     spec = {
-    { "theprimeagen/harpoon",
-        disable = vscode_cond
-    };
     "mbbill/undotree";
     { "nvim-treesitter/nvim-treesitter-context",
         disable = vscode_cond

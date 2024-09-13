@@ -81,9 +81,10 @@ return {
               })
               
 
-            lsp.setup_servers({'pylsp', 'rust_analyzer', 'lua-language-server'})
+            lsp.setup_servers({'pylsp', 'rust_analyzer'})
             require('mason').setup({})
             require('mason-lspconfig').setup({
+                ensure_installed = { "lua_ls", "rust_analyzer", 'pylsp'},
               handlers = {
                 function(server_name)
                   require('lspconfig')[server_name].setup({})
