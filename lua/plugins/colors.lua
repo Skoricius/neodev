@@ -52,5 +52,6 @@ return {
             },
         })
     end,
+    enable=vim.g.vscode == nil
 }
 }

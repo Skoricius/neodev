@@ -36,14 +36,6 @@
     { "theprimeagen/harpoon",
         disable = vscode_cond
     };
-    {
-        "kdheepak/lazygit.nvim",
-        -- optional for floating window border decoration
-        requires = {
-            "nvim-lua/plenary.nvim",
-        },
-        disable = vscode_cond
-    };
     "mbbill/undotree";
     { "nvim-treesitter/nvim-treesitter-context",
         disable = vscode_cond
@@ -72,20 +64,9 @@
         },
         disable = vscode_cond
     };
-    {
-        "nvimdev/guard.nvim",
-        -- Builtin configuration, optional
-        requires = {
-            { "nvimdev/guard-collection" },
-        },
-        disable = vscode_cond
-    };
 
     { "laytan/cloak.nvim",
         disable = vscode_cond
-    };
-    {
-        "ggandor/leap.nvim",
     };
     {
         'cameron-wags/rainbow_csv.nvim',
@@ -112,45 +93,6 @@
             'RainbowDelimQuoted',
             'RainbowMultiDelim'
         },
-        disable = vscode_cond
-    };
-    {
-        'nvim-lualine/lualine.nvim',
-        requires = { 'nvim-tree/nvim-web-devicons', opt = true },
-        disable = vscode_cond
-    };
-    -- Side pane for file navigation
-    {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v3.x",
-        requires = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-            "MunifTanjim/nui.nvim",
-            -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-        },
-        opts = {
-            auto_clean_after_session_restore = true,
-        },
-        disable = vscode_cond
-    };
-    {
-        'numToStr/Comment.nvim',
-        config = function()
-            require('Comment').setup({
-                ---Add a space b/w comment and the line
-                padding = true,
-                ---Whether the cursor should stay at its position
-                sticky = true,
-            })
-        end,
-        disable = vscode_cond
-    };
-    { "akinsho/toggleterm.nvim",
-        tag = '*',
-        config = function()
-            require("toggleterm").setup()
-        end,
         disable = vscode_cond
     };
     --  docstringing
