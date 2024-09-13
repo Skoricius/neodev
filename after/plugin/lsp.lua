@@ -5,9 +5,7 @@ if vim.g.vscode == nil then
 
     lsp.ensure_installed({
         'rust_analyzer',
-        'python-lsp-server',
-        'isort',
-        'black'
+        'pylsp',
     })
 
     -- Fix Undefined global 'vim'

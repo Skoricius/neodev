@@ -1,29 +1,43 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
+end
+vim.opt.rtp:prepend(lazypath)
 
--- Only required if you have packer configured as `opt`
-vim.cmd.packadd('packer.nvim')
-local vscode_cond = vim.g.vscode ~= nil
--- print("Vscode: ", vscode_cond)
+-- Make sure to setup `mapleader` and `maplocalleader` before
+-- loading lazy.nvim so that mappings are correct.
+-- This is also a good place to setup other settings (vim.opt)
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
-return require('packer').startup(function(use)
-    -- Packer can manage itself
-    use 'wbthomason/packer.nvim'
-
-    use {
+-- Setup lazy.nvim
+require("lazy").setup({
+    spec = {
+    {
         'nvim-telescope/telescope.nvim', tag = '0.1.4',
         -- or                            , branch = '0.1.x',
         requires = { { 'nvim-lua/plenary.nvim' } },
         disable = vscode_cond
-    }
-    use {
-        "nvim-telescope/telescope-frecency.nvim",
+    };
+    {"nvim-telescope/telescope-frecency.nvim",
         disable = vscode_cond
-    }
+    };
 
 
-    use { "catppuccin/nvim", as = "catppuccin", disable = vscode_cond }
-    use { "navarasu/onedark.nvim", disable = vscode_cond }
-    use({
+    { "catppuccin/nvim", as = "catppuccin", disable = vscode_cond };
+    { "navarasu/onedark.nvim", disable = vscode_cond };
+    {
         "folke/trouble.nvim",
         config = function()
             require("trouble").setup {
@@ -34,33 +48,33 @@ return require('packer').startup(function(use)
             }
         end,
         disable = vscode_cond
-    })
+    };
 
-    use {
+    {
         'nvim-treesitter/nvim-treesitter',
         run = function()
             local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
             ts_update()
         end,
         disable = vscode_cond
-    }
-    use { "theprimeagen/harpoon",
+    };
+    { "theprimeagen/harpoon",
         disable = vscode_cond
-    }
-    use({
+    };
+    {
         "kdheepak/lazygit.nvim",
         -- optional for floating window border decoration
         requires = {
             "nvim-lua/plenary.nvim",
         },
         disable = vscode_cond
-    })
-    use("mbbill/undotree")
-    use { "nvim-treesitter/nvim-treesitter-context",
+    };
+    "mbbill/undotree";
+    { "nvim-treesitter/nvim-treesitter-context",
         disable = vscode_cond
     };
 
-    use {
+    {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v1.x',
         requires = {
@@ -82,23 +96,23 @@ return require('packer').startup(function(use)
             { 'rafamadriz/friendly-snippets' },
         },
         disable = vscode_cond
-    }
-    use {
+    };
+    {
         "nvimdev/guard.nvim",
         -- Builtin configuration, optional
         requires = {
             { "nvimdev/guard-collection" },
         },
         disable = vscode_cond
-    }
+    };
 
-    use { "laytan/cloak.nvim",
+    { "laytan/cloak.nvim",
         disable = vscode_cond
-    }
-    use {
+    };
+    {
         "ggandor/leap.nvim",
-    }
-    use {
+    };
+    {
         'cameron-wags/rainbow_csv.nvim',
         config = function()
             require 'rainbow_csv'.setup()
@@ -124,14 +138,14 @@ return require('packer').startup(function(use)
             'RainbowMultiDelim'
         },
         disable = vscode_cond
-    }
-    use {
+    };
+    {
         'nvim-lualine/lualine.nvim',
         requires = { 'nvim-tree/nvim-web-devicons', opt = true },
         disable = vscode_cond
-    }
+    };
     -- Side pane for file navigation
-    use {
+    {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
         requires = {
@@ -144,8 +158,8 @@ return require('packer').startup(function(use)
             auto_clean_after_session_restore = true,
         },
         disable = vscode_cond
-    }
-    use {
+    };
+    {
         'numToStr/Comment.nvim',
         config = function()
             require('Comment').setup({
@@ -156,23 +170,23 @@ return require('packer').startup(function(use)
             })
         end,
         disable = vscode_cond
-    }
-    use { "akinsho/toggleterm.nvim",
+    };
+    { "akinsho/toggleterm.nvim",
         tag = '*',
         config = function()
             require("toggleterm").setup()
         end,
         disable = vscode_cond
-    }
+    };
     --  docstringing
-    use {
+    {
         "danymat/neogen",
         config = function()
             require('neogen').setup {}
         end,
         -- Uncomment next line if you want to follow only stable versions
         -- tag = "*"
-    }
+    };
     -- use {
     --     'rmagatti/auto-session',
     --     config = function()
@@ -185,11 +199,11 @@ return require('packer').startup(function(use)
     --     disable = vscode_cond
     -- }
     -- yanking over ssh
-    use {
+    {
         "ojroques/nvim-oscyank",
         disable = vscode_cond
-    }
-    use {
+    };
+    {
         "folke/zen-mode.nvim",
         opts = {
             -- your configuration comes here
@@ -197,7 +211,7 @@ return require('packer').startup(function(use)
             -- refer to the configuration section below
         },
         disable = vscode_cond
-    }
+    };
     -- Plugin for interactively running Python scripts
     -- use {
     --     "benlubas/molten-nvim",
@@ -208,11 +222,11 @@ return require('packer').startup(function(use)
     --         vim.g.molten_output_win_max_height = 12
     --     end,
     -- }
-    use { 'Vigemus/iron.nvim', disable = vscode_cond }
-    use { "mfussenegger/nvim-dap", disable = vscode_cond }
-    use { "mfussenegger/nvim-dap-python", disable = vscode_cond }
+    { 'Vigemus/iron.nvim', disable = vscode_cond };
+    { "mfussenegger/nvim-dap", disable = vscode_cond };
+    { "mfussenegger/nvim-dap-python", disable = vscode_cond };
     -- Testing
-    use {
+    {
         "nvim-neotest/neotest",
         requires = {
             "nvim-neotest/nvim-nio",
@@ -221,19 +235,21 @@ return require('packer').startup(function(use)
             "nvim-treesitter/nvim-treesitter",
         },
         disable = vscode_cond,
-    }
-    use { "nvim-neotest/neotest-python",
+    };
+    { "nvim-neotest/neotest-python",
         disable = vscode_cond,
-    }
-    use {
+    };
+    {
         "sindrets/diffview.nvim",
         disable = vscode_cond,
-    }
-    use { "rcarriga/nvim-dap-ui",
+    };
+    { "rcarriga/nvim-dap-ui",
         config = function()
             require('dapui').setup({ })
         end,
         requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
         disable = vscode_cond
+    },
 }
-end)
+})
+
