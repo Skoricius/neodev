@@ -1,14 +1,6 @@
 
     spec = {
-    {
-        'nvim-telescope/telescope.nvim', tag = '0.1.4',
-        -- or                            , branch = '0.1.x',
-        requires = { { 'nvim-lua/plenary.nvim' } },
-        disable = vscode_cond
-    };
-    {"nvim-telescope/telescope-frecency.nvim",
-        disable = vscode_cond
-    };
+
 
 
     { "navarasu/onedark.nvim", disable = vscode_cond };
@@ -24,15 +16,6 @@
         end,
         disable = vscode_cond
     };
-
-    {
-        'nvim-treesitter/nvim-treesitter',
-        run = function()
-            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-            ts_update()
-        end,
-        disable = vscode_cond
-    };
     { "theprimeagen/harpoon",
         disable = vscode_cond
     };
@@ -41,29 +24,6 @@
         disable = vscode_cond
     };
 
-    {
-        'VonHeikemen/lsp-zero.nvim',
-        branch = 'v1.x',
-        requires = {
-            -- LSP Support
-            { 'neovim/nvim-lspconfig' },
-            { 'williamboman/mason.nvim' },
-            { 'williamboman/mason-lspconfig.nvim' },
-
-            -- Autocompletion
-            { 'hrsh7th/nvim-cmp' },
-            { 'hrsh7th/cmp-buffer' },
-            { 'hrsh7th/cmp-path' },
-            { 'saadparwaiz1/cmp_luasnip' },
-            { 'hrsh7th/cmp-nvim-lsp' },
-            { 'hrsh7th/cmp-nvim-lua' },
-
-            -- Snippets
-            { 'L3MON4D3/LuaSnip' },
-            { 'rafamadriz/friendly-snippets' },
-        },
-        disable = vscode_cond
-    };
 
     { "laytan/cloak.nvim",
         disable = vscode_cond

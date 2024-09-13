@@ -53,5 +53,12 @@ return {
         })
     end,
     enable=vim.g.vscode == nil
-}
+},
+
+{
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "catppuccin",
+    },
+  }
 }
