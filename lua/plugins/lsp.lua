@@ -6,8 +6,6 @@ return {
         dependencies = {
             -- LSP Support
             'neovim/nvim-lspconfig',
-            'williamboman/mason.nvim',
-            'williamboman/mason-lspconfig.nvim',
     
             -- Autocompletion
             'hrsh7th/nvim-cmp',
@@ -24,27 +22,10 @@ return {
         config = function()
             local lsp = require("lsp-zero")
 
-            -- lsp.preset("recommended")
-
-            require('mason-lspconfig').setup({
-                -- ensure_installed = {
-                -- 'rust_analyzer',
-                -- 'pylsp',
-                -- },
-                handlers = {
-                  function(server_name)
-                    require('lspconfig')[server_name].setup({})
-                  end,
-                }
-            })
 
 
-
-            lsp.on_attach(function(client, bufnr)
+            local lsp_attach = function(client, bufnr)
                 local opts = { buffer = bufnr, remap = false }
-
-                -- Fix Undefined global 'vim'
-                lsp.nvim_workspace()
 
                 lsp.format_on_save({
                     format_opts = {
@@ -52,14 +33,20 @@ return {
                         timeout_ms = 10000,
                     },
                     servers = {
-                        ['pyright'] = { 'python' },
+                        ['pylsp'] = { 'python' },
                         ['rust_analyzer'] = { 'rust' },
                     }
                 })
                 local luasnip = require("luasnip")
                 local cmp = require('cmp')
+                local cmp_action = require('lsp-zero').cmp_action()
+                
                 local cmp_select = { behavior = cmp.SelectBehavior.Select }
-                local cmp_mappings_settings = {
+                cmp.setup({
+                    sources = {
+                        {name = 'nvim_lsp'},
+                    },
+                    mapping = cmp.mapping.preset.insert({
                     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
                     ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
                     ['<C-y>'] = cmp.mapping.confirm({ select = true }),
@@ -72,21 +59,7 @@ return {
                         behavior = cmp.ConfirmBehavior.Replace,
                         select = true,
                     }),
-                }
-                local cmp_mappings = lsp.defaults.cmp_mappings(cmp_mappings_settings)
-                cmp.setup({mapping = cmp.mapping.preset.insert(cmp_mappings_settings)})
-                lsp.setup_nvim_cmp({
-                    mapping = cmp_mappings
                 })
-
-                lsp.set_preferences({
-                    suggest_lsp_servers = false,
-                    sign_icons = {
-                        error = 'E',
-                        warn = 'W',
-                        hint = 'H',
-                        info = 'I'
-                    }
                 })
 
                 vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
@@ -101,14 +74,19 @@ return {
                 vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
                 -- vim.keymap.set("i", "<C-a>", function() vim.lsp.buf.complete() end, opts)
                 vim.keymap.set("n", "<leader>vh", function() vim.lsp.buf.signature_help() end, opts)
-            end)
+            end
 
-            lsp.setup()
+            lsp.extend_lspconfig({
+                sign_text = true,
+                lsp_attach = lsp_attach,
+                capabilities = require('cmp_nvim_lsp').default_capabilities(),
+              })
+              
 
-            vim.diagnostic.config({
-                virtual_text = true
-            })
+            lsp.setup_servers({'pylsp', 'rust_analyzer'})
         end,
         enable = vim.g.vscode == nil
-    }
+    },
+    {'williamboman/mason.nvim'},
+    {'williamboman/mason-lspconfig.nvim'},
 }

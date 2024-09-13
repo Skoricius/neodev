@@ -1,21 +1,5 @@
 
     spec = {
-
-
-
-    { "navarasu/onedark.nvim", disable = vscode_cond };
-    {
-        "folke/trouble.nvim",
-        config = function()
-            require("trouble").setup {
-                icons = false,
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            }
-        end,
-        disable = vscode_cond
-    };
     { "theprimeagen/harpoon",
         disable = vscode_cond
     };
@@ -24,37 +8,6 @@
         disable = vscode_cond
     };
 
-
-    { "laytan/cloak.nvim",
-        disable = vscode_cond
-    };
-    {
-        'cameron-wags/rainbow_csv.nvim',
-        config = function()
-            require 'rainbow_csv'.setup()
-        end,
-        -- optional lazy-loading below
-        module = {
-            'rainbow_csv',
-            'rainbow_csv.fns'
-        },
-        ft = {
-            'csv',
-            'tsv',
-            'csv_semicolon',
-            'csv_whitespace',
-            'csv_pipe',
-            'rfc_csv',
-            'rfc_semicolon'
-        },
-        cmd = {
-            'RainbowDelim',
-            'RainbowDelimSimple',
-            'RainbowDelimQuoted',
-            'RainbowMultiDelim'
-        },
-        disable = vscode_cond
-    };
     --  docstringing
     {
         "danymat/neogen",
