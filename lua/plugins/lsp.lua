@@ -1,5 +1,3 @@
-
-
 return {
     {
         'VonHeikemen/lsp-zero.nvim',
@@ -42,22 +40,22 @@ return {
                 local cmp_select = { behavior = cmp.SelectBehavior.Select }
                 cmp.setup({
                     sources = {
-                        {name = 'nvim_lsp'},
+                        { name = 'nvim_lsp' },
                     },
                     mapping = cmp.mapping.preset.insert({
-                    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-                    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-                    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-                    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-                    ["<C-m>"] = cmp.mapping.complete(),
-                    ["<C-e>"] = cmp.mapping.close(),
-                    ["<Esc>"] = cmp.mapping.close(),
-                    -- ["<CR>"] = cmp.config.disable, lsp
-                    ["<Right>"] = cmp.mapping.confirm({
-                        behavior = cmp.ConfirmBehavior.Replace,
-                        select = true,
-                    }),
-                })
+                        ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+                        ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+                        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+                        ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+                        ["<C-m>"] = cmp.mapping.complete(),
+                        ["<C-e>"] = cmp.mapping.close(),
+                        ["<Esc>"] = cmp.mapping.close(),
+                        -- ["<CR>"] = cmp.config.disable, lsp
+                        ["<Right>"] = cmp.mapping.confirm({
+                            behavior = cmp.ConfirmBehavior.Replace,
+                            select = true,
+                        }),
+                    })
                 })
 
                 vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
@@ -70,7 +68,7 @@ return {
                 vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
                 vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
                 vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-               -- vim.keymap.set("i", "<C-a>", function() vim.lsp.buf.complete() end, opts)
+                -- vim.keymap.set("i", "<C-a>", function() vim.lsp.buf.complete() end, opts)
                 vim.keymap.set("n", "<leader>vh", function() vim.lsp.buf.signature_help() end, opts)
             end
 
@@ -78,18 +76,18 @@ return {
                 sign_text = true,
                 lsp_attach = lsp_attach,
                 capabilities = require('cmp_nvim_lsp').default_capabilities(),
-              })
-              
+            })
 
-            lsp.setup_servers({'pylsp', 'rust_analyzer'})
+
+            lsp.setup_servers({ 'pylsp', 'rust_analyzer' })
             require('mason').setup({})
             require('mason-lspconfig').setup({
-                ensure_installed = { "lua_ls", "rust_analyzer", 'pylsp'},
-              handlers = {
-                function(server_name)
-                  require('lspconfig')[server_name].setup({})
-                end,
-              },
+                ensure_installed = { "lua_ls", "rust_analyzer", 'pylsp' },
+                handlers = {
+                    function(server_name)
+                        require('lspconfig')[server_name].setup({})
+                    end,
+                },
             })
         end,
         enable = vim.g.vscode == nil
