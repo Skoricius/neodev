@@ -6,7 +6,8 @@ return {
         dependencies = {
             -- LSP Support
             'neovim/nvim-lspconfig',
-    
+            'williamboman/mason.nvim',
+            'williamboman/mason-lspconfig.nvim',
             -- Autocompletion
             'hrsh7th/nvim-cmp',
             'hrsh7th/cmp-buffer',
@@ -14,7 +15,6 @@ return {
             'saadparwaiz1/cmp_luasnip',
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-nvim-lua',
-    
             -- Snippets
             'L3MON4D3/LuaSnip',
             'rafamadriz/friendly-snippets',
@@ -39,8 +39,6 @@ return {
                 })
                 local luasnip = require("luasnip")
                 local cmp = require('cmp')
-                local cmp_action = require('lsp-zero').cmp_action()
-                
                 local cmp_select = { behavior = cmp.SelectBehavior.Select }
                 cmp.setup({
                     sources = {
@@ -72,7 +70,7 @@ return {
                 vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
                 vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
                 vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-                -- vim.keymap.set("i", "<C-a>", function() vim.lsp.buf.complete() end, opts)
+               -- vim.keymap.set("i", "<C-a>", function() vim.lsp.buf.complete() end, opts)
                 vim.keymap.set("n", "<leader>vh", function() vim.lsp.buf.signature_help() end, opts)
             end
 
@@ -83,10 +81,16 @@ return {
               })
               
 
-            lsp.setup_servers({'pylsp', 'rust_analyzer'})
+            lsp.setup_servers({'pylsp', 'rust_analyzer', 'lua-language-server'})
+            require('mason').setup({})
+            require('mason-lspconfig').setup({
+              handlers = {
+                function(server_name)
+                  require('lspconfig')[server_name].setup({})
+                end,
+              },
+            })
         end,
         enable = vim.g.vscode == nil
     },
-    {'williamboman/mason.nvim'},
-    {'williamboman/mason-lspconfig.nvim'},
 }
