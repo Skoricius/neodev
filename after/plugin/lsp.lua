@@ -4,8 +4,10 @@ if vim.g.vscode == nil then
     lsp.preset("recommended")
 
     lsp.ensure_installed({
-        'pyright',
         'rust_analyzer',
+        'python-lsp-server',
+        'isort',
+        'black'
     })
 
     -- Fix Undefined global 'vim'
