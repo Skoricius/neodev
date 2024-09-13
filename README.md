@@ -1,5 +1,5 @@
 # My Neovim configuration
 
-Requirements: install [ripgrep](https://github.com/BurntSushi/ripgrep) and [packer](https://github.com/wbthomason/packer.nvim).
+Requirements: install [ripgrep](https://github.com/BurntSushi/ripgrep).
 
-Pull into `./config/nvim` and run `:PackerSync`.
+Clone to `~/.config/nvim` and start nvim (`>=0.10.0`) and lazy should take care of everything.
