@@ -83,12 +83,38 @@ return {
             require('mason').setup({})
             require('mason-lspconfig').setup({
                 ensure_installed = { "lua_ls", "rust_analyzer", 'pylsp' },
-                handlers = {
-                    function(server_name)
-                        require('lspconfig')[server_name].setup({})
-                    end,
-                },
+                -- handlers = {
+                --     function(server_name)
+                --         require('lspconfig')[server_name].setup({})
+                --     end,
+                -- },
             })
+            require('lspconfig').pylsp.setup {
+                settings = {
+                    pylsp = {
+                        plugins = {
+                            -- formatter options
+                            black = { enabled = true },
+                            -- linter options
+                            flake8 = { enabled = false },
+                            pylint = { enabled = true, executable = "pylint" },
+                            -- pycodestyle = {
+                            --     ignore = { 'E501' }, -- This is the Error code for line too long.
+                            --     maxLineLength = 100 -- This sets how long the line is allowed to be. Also has effect on formatter.
+                            -- },
+                            ruff = { enabled = false },
+                            pyflakes = { enabled = false },
+                            pycodestyle = { enabled = false },
+                            -- type checker
+                            pylsp_mypy = { enabled = true },
+                            -- auto-completion options
+                            jedi_completion = { fuzzy = true },
+                            -- import sorting
+                            pyls_isort = { enabled = true },
+                        }
+                    }
+                }
+            }
         end,
         enable = vim.g.vscode == nil
     },
