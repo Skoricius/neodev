@@ -50,7 +50,7 @@ return {
                         ["<C-m>"] = cmp.mapping.complete(),
                         ["<C-e>"] = cmp.mapping.close(),
                         ["<Esc>"] = cmp.mapping.close(),
-                        -- ["<CR>"] = cmp.config.disable, lsp
+                        ["<CR>"] = cmp.mapping.confirm({ select = true, }),
                         ["<Right>"] = cmp.mapping.confirm({
                             behavior = cmp.ConfirmBehavior.Replace,
                             select = true,
