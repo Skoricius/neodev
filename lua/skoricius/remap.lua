@@ -57,3 +57,8 @@ vim.keymap.set("n", "<C-s>", "<cmd>w!<cr>")
 vim.keymap.set("n", "<C-c>", "<C-w>c")
 vim.keymap.set("n", "<C-q>", "<C-w>qa")
 
+-- New lines
+vim.keymap.set("i", "<C-cr>", "<Esc>o")
+vim.keymap.set("i", "<C-S-cr>", "<Esc>O")
+vim.keymap.set("n", "<C-cr>", "<Esc>o")
+vim.keymap.set("n", "<C-S-cr>", "<Esc>O")
