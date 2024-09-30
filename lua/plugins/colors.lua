@@ -8,6 +8,7 @@ return {
           -- load the colorscheme here
           vim.cmd([[colorscheme tokyonight-moon]])
         end,
+        enable=vim.g.vscode == nil
       },
 --     {
 --     "catppuccin/nvim",

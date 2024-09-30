@@ -11,9 +11,8 @@ return {
         },
         config = function()
             vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>")
-        end,
-
-        opts = {
+            
+            require("neo-tree").setup({
             auto_clean_after_session_restore = true,
             close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
             popup_border_style = "rounded",
@@ -184,7 +183,7 @@ return {
                     ["<"] = "prev_source",
                     [">"] = "next_source",
                     ["i"] = "show_file_details",
-                    ['Y'] = function(state)
+                    ["Y"] = function(state)
                         -- NeoTree is based on [NuiTree](https://github.com/MunifTanjim/nui.nvim/tree/main/lua/nui/tree)
                         -- The node is based on [NuiNode](https://github.com/MunifTanjim/nui.nvim/tree/main/lua/nui/tree#nuitreenode)
                         local node = state.tree:get_node()
@@ -335,7 +334,8 @@ return {
                     }
                 }
             }
-        },
+            })
+        end,
         enable = vim.g.vscode == nil
     }
 }
