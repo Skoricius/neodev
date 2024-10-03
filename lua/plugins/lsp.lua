@@ -112,19 +112,23 @@ return {
 				})
 				local lua_opts = lsp.nvim_lua_ls()
 				require("lspconfig").lua_ls.setup(lua_opts)
+
+				local python_utils = require("utilities.python")
 				require("lspconfig").pylsp.setup({
-					-- on_init = function(client)
-					--     if python_utils.is_poetry_installed() then
-					--       local poetry_env = python_utils.get_poetry_project_path()
-					--       if poetry_env then
-					--         client.config.settings.pylsp.plugins.jedi.environment = poetry_env
-					--         local pylint_args = string.format("--init-hook='import sys; sys.path.append(\"%s\")'", python_utils.get_poetry_site_packages())
-					--         table.insert(client.config.settings.pylsp.plugins.pylint.args, pylint_args)
-					--         client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
-					--         return true
-					--       end
-					--     end
-					--     end,
+					on_init = function(client)
+						if python_utils.is_poetry_installed() then
+							local poetry_env = python_utils.get_poetry_project_path()
+							if poetry_env then
+								local pylint_args = string.format(
+									"--init-hook='import sys; sys.path.append(\"%s\")'",
+									python_utils.get_poetry_site_packages()
+								)
+								table.insert(client.config.settings.pylsp.plugins.pylint.args, pylint_args)
+								client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+								return true
+							end
+						end
+					end,
 					settings = {
 						pylsp = {
 							plugins = {
@@ -132,12 +136,12 @@ return {
 								black = { enabled = true },
 								-- linter options
 								flake8 = { enabled = false },
-								pylint = { enabled = false },
+								pylint = { enabled = true, args = {} },
 								-- pycodestyle = {
 								--     ignore = { 'E501' }, -- This is the Error code for line too long.
 								--     maxLineLength = 100 -- This sets how long the line is allowed to be. Also has effect on formatter.
 								-- },
-								ruff = { enabled = true },
+								ruff = { enabled = false },
 								pyflakes = { enabled = false },
 								pycodestyle = { enabled = false },
 								-- type checker
