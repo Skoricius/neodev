@@ -53,16 +53,6 @@
     { "mfussenegger/nvim-dap", disable = vscode_cond };
     { "mfussenegger/nvim-dap-python", disable = vscode_cond };
     -- Testing
-    {
-        "nvim-neotest/neotest",
-        requires = {
-            "nvim-neotest/nvim-nio",
-            "nvim-lua/plenary.nvim",
-            "antoinemadec/FixCursorHold.nvim",
-            "nvim-treesitter/nvim-treesitter",
-        },
-        disable = vscode_cond,
-    };
     { "nvim-neotest/neotest-python",
         disable = vscode_cond,
     };
