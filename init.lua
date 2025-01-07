@@ -1,3 +1,5 @@
 -- vim.g.python3_host_skip_check = 1
-require("config.lazy")
+-- print("starting")
+-- print(vim.g.vscode)
 require("skoricius")
+require("config.lazy")

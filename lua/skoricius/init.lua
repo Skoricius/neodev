@@ -1,2 +1,4 @@
 require("skoricius.remap")
-require("skoricius.set")
+if vim.g.vscode == nil then
+	require("skoricius.set")
+end

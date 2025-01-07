@@ -50,4 +50,3 @@ vim.opt.titlestring = titlestring
 --     set titlestring+=\ -\ %{v:progname}                               " program name
 --     set titlestring+=\ -\ %{substitute(getcwd(),\ $HOME,\ '~',\ '')}  " working directory
 -- endif
-
