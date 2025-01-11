@@ -34,6 +34,14 @@ if not vim.g.vscode then
 								["pylsp"] = { "python" },
 								["rust_analyzer"] = { "rust" },
 								["lua_ls"] = { "lua" },
+								["clangd"] = {
+									"c",
+									"cpp",
+									"objc",
+									"objcpp",
+									"cuda",
+									"proto",
+								},
 							},
 						})
 						local luasnip = require("luasnip")
