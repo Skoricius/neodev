@@ -45,7 +45,7 @@ vim.keymap.set("n", "<C-l>", "<C-w>l")
 -- saving and quitting files
 vim.keymap.set("n", "<C-s>", "<cmd>w!<cr>")
 vim.keymap.set("n", "<C-c>", "<C-w>c")
-vim.keymap.set("n", "<C-q>", "<C-w>qa")
+vim.keymap.set("n", "<C-q>", "<cmd>qa<cr>")
 
 -- New lines
 vim.keymap.set("i", "<C-cr>", "<Esc>o")
