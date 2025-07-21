@@ -1,4 +1,4 @@
-# Neovim no-fuss configuration
+# Neodev - neovim no-fuss configuration for development
 
 ## Requirements
 
