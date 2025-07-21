@@ -1,5 +1,7 @@
 # Neodev - neovim no-fuss configuration for development
 
+This repository sets up a pretty solid dev environment in neovim with no configuration required. It is mainly focused on Python development, but with a few small changes, it could be adapted to other languages.
+
 ## Requirements
 
 - [npx](https://docs.npmjs.com/cli/v8/commands/npx). Might need `sudo apt install npm && npm i -g npx`.
@@ -9,7 +11,6 @@
 
 Clone to `~/.config/nvim` and start [nvim](https://github.com/neovim/neovim/blob/master/INSTALL.md) (`>=0.10.0`) and lazy should take care of everything.
 
-This repository sets up a pretty solid dev environment in neovim with no configuration required. It is mainly focused on Python development, but with a few small changes, it could be adapted to other languages.
 
 ## Mappings
 
