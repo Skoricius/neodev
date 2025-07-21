@@ -31,22 +31,3 @@ local titlestring = ""
 titlestring = titlestring .. "%{substitute(getcwd(),$HOME,'~','')}"
 titlestring = titlestring .. " - %t"
 vim.opt.titlestring = titlestring
--- vim.g.clipboard = {
---   name = 'OSC 52',
---   copy = {
---     ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
---     ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
---   },
---   paste = {
---     ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
---     ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
---   },
--- }
--- " Nice window title
--- if has('title') && (has('gui_running') || &title)
---     set titlestring=
---     set titlestring+=%f\                                              " file name
---     set titlestring+=%h%m%r%w                                         " flags
---     set titlestring+=\ -\ %{v:progname}                               " program name
---     set titlestring+=\ -\ %{substitute(getcwd(),\ $HOME,\ '~',\ '')}  " working directory
--- endif
