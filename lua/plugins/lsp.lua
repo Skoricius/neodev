@@ -121,11 +121,11 @@ return {
 					--     end,
 					-- },
 				})
-				local lua_opts = lsp.nvim_lua_ls()
-				require("lspconfig").lua_ls.setup(lua_opts)
+                vim.lsp.enable('lua_ls')
+                vim.lsp.enable('pylsp')
 
 				local python_utils = require("utilities.python")
-				require("lspconfig").pylsp.setup({
+				vim.lsp.config["pylsp"] = {
 					on_init = function(client)
 						if python_utils.is_poetry_installed() then
 							local poetry_env = python_utils.get_poetry_project_path()
@@ -164,7 +164,7 @@ return {
 							},
 						},
 					},
-				})
+				}
 			end
 		end,
 		enable = vim.g.vscode == nil,
