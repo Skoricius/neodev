@@ -111,58 +111,58 @@ return {
 					capabilities = require("cmp_nvim_lsp").default_capabilities(),
 				})
 
-				lsp.setup_servers({ "pylsp", "rust_analyzer" })
-				require("mason").setup({})
-				require("mason-lspconfig").setup({
-					ensure_installed = { "lua_ls", "rust_analyzer", "pylsp" },
-					-- handlers = {
-					--     function(server_name)
-					--         require('lspconfig')[server_name].setup({})
-					--     end,
-					-- },
-				})
+			lsp.setup_servers({ "rust_analyzer" })
+			require("mason").setup({})
+			require("mason-lspconfig").setup({
+				ensure_installed = { "lua_ls", "rust_analyzer", "pylsp" },
+				-- handlers = {
+				--     function(server_name)
+				--         require('lspconfig')[server_name].setup({})
+				--     end,
+				-- },
+			})
 
-				local python_utils = require("utilities.python")
-				vim.lsp.config["pylsp"] = {
-					on_init = function(client)
-						if python_utils.is_poetry_installed() then
-							local poetry_env = python_utils.get_poetry_project_path()
-							if poetry_env then
-								local pylint_args = string.format(
-									"--init-hook='import sys; sys.path.append(\"%s\")'",
-									python_utils.get_poetry_site_packages()
-								)
-								table.insert(client.config.settings.pylsp.plugins.pylint.args, pylint_args)
-								client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
-								return true
-							end
+			local python_utils = require("utilities.python")
+			require("lspconfig").pylsp.setup({
+				on_init = function(client)
+					if python_utils.is_poetry_installed() then
+						local poetry_env = python_utils.get_poetry_project_path()
+						if poetry_env then
+							local pylint_args = string.format(
+								"--init-hook='import sys; sys.path.append(\"%s\")'",
+								python_utils.get_poetry_site_packages()
+							)
+							table.insert(client.config.settings.pylsp.plugins.pylint.args, pylint_args)
+							client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+							return true
 						end
-					end,
-					settings = {
-						pylsp = {
-							plugins = {
-								-- formatter options
-								black = { enabled = true },
-								-- linter options
-								flake8 = { enabled = false },
-								pylint = { enabled = true, args = {} },
-								-- pycodestyle = {
-								--     ignore = { 'E501' }, -- This is the Error code for line too long.
-								--     maxLineLength = 100 -- This sets how long the line is allowed to be. Also has effect on formatter.
-								-- },
-								ruff = { enabled = false },
-								pyflakes = { enabled = false },
-								pycodestyle = { enabled = false },
-								-- type checker
-								pylsp_mypy = { enabled = true },
-								-- auto-completion options
-								jedi_completion = { fuzzy = true },
-								-- import sorting
-								pyls_isort = { enabled = true },
-							},
+					end
+				end,
+				settings = {
+					pylsp = {
+						plugins = {
+							-- formatter options
+							black = { enabled = true },
+							-- linter options
+							flake8 = { enabled = false },
+							pylint = { enabled = true, args = {} },
+							-- pycodestyle = {
+							--     ignore = { 'E501' }, -- This is the Error code for line too long.
+							--     maxLineLength = 100 -- This sets how long the line is allowed to be. Also has effect on formatter.
+							-- },
+							ruff = { enabled = false },
+							pyflakes = { enabled = false },
+							pycodestyle = { enabled = false },
+							-- type checker
+							pylsp_mypy = { enabled = true },
+							-- auto-completion options
+							jedi_completion = { fuzzy = true },
+							-- import sorting
+							pyls_isort = { enabled = true },
 						},
 					},
-				}
+				},
+			})
 			end
 		end,
 		enabled = vim.g.vscode == nil,
