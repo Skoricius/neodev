@@ -121,8 +121,6 @@ return {
 					--     end,
 					-- },
 				})
-                vim.lsp.enable('lua_ls')
-                vim.lsp.enable('pylsp')
 
 				local python_utils = require("utilities.python")
 				vim.lsp.config["pylsp"] = {
@@ -167,6 +165,6 @@ return {
 				}
 			end
 		end,
-		enable = vim.g.vscode == nil,
+		enabled = vim.g.vscode == nil,
 	},
 }

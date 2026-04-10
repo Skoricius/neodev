@@ -88,6 +88,6 @@ return {
 			})
 			-- require("telescope").load_extension "frecency"
 		end,
-		enable = vim.g.vscode == nil,
+		enabled = vim.g.vscode == nil,
 	},
 }

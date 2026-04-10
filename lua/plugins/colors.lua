@@ -7,6 +7,6 @@ return {
 			-- load the colorscheme here
 			vim.cmd([[colorscheme tokyonight-moon]])
 		end,
-		enable = vim.g.vscode == nil,
+		enabled = vim.g.vscode == nil,
 	},
 }

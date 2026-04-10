@@ -24,6 +24,6 @@ return {
 			end)
 			vim.keymap.set("n", "<leader>gg", vim.cmd.LazyGit)
 		end,
-		enable = vim.g.vscode == nil,
+		enabled = vim.g.vscode == nil,
 	},
 }

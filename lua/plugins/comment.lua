@@ -20,6 +20,6 @@ return {
 				require("Comment.api").toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1)
 			end)
 		end,
-		enable = vim.g.vscode == nil,
+		enabled = vim.g.vscode == nil,
 	},
 }

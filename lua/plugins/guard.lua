@@ -39,6 +39,6 @@ return {
 				-- save_on_fmt = false,
 			}
 		end,
-		enable = vim.g.vscode == nil,
+		enabled = vim.g.vscode == nil,
 	},
 }

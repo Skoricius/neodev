@@ -51,5 +51,5 @@ return {
 		end)
 		vim.keymap.set("n", "<leader>ya", require("neotest").run.attach)
 	end,
-	enable = vim.g.vscode == nil,
+	enabled = vim.g.vscode == nil,
 }

@@ -15,6 +15,6 @@ return {
             })
             vim.api.nvim_set_keymap("n", "<Leader>gc", ":lua require('neogen').generate()<CR>", { noremap = true, silent = true })
         end,
-        enable = vim.g.vscode == nil
+        enabled = vim.g.vscode == nil
     }
 }

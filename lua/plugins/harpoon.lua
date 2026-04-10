@@ -11,6 +11,6 @@ return {
 			vim.keymap.set("n", "<leader>.", ui.nav_next)
 			vim.keymap.set("n", "<leader>,", ui.nav_prev)
 		end,
-		enable = vim.g.vscode == nil,
+		enabled = vim.g.vscode == nil,
 	},
 }

@@ -19,6 +19,6 @@ return {
             "RainbowDelimQuoted",
             "RainbowMultiDelim",
         },
-        enable = vim.g.vscode == nil,
+        enabled = vim.g.vscode == nil,
     },
 }

@@ -19,6 +19,6 @@ return {
 			vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]])
 			vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]])
 		end,
-		enable = vim.g.vscode == nil,
+		enabled = vim.g.vscode == nil,
 	},
 }
