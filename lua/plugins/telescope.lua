@@ -40,7 +40,6 @@ return {
 					-- git_worktrees = vim.g.git_worktrees,
 					-- path_display = { "shorten" },
 					sorting_strategy = "ascending",
-					ignore_patterns = { "*.git/*", "*/tmp/*" },
 					layout_config = {
 						horizontal = { prompt_position = "top", preview_width = 0.55 },
 						vertical = { mirror = false },
@@ -50,20 +49,66 @@ return {
 					},
 					path_display = filenameFirst,
 					file_ignore_patterns = {
-						"*.bak/",
-						".git/",
-						".vscode/",
+						"%.bak/",
+						"%.git/",
+						"%.vscode/",
+						"%.venv/",
+						"venv/",
+						"env/",
+						"__pycache__/",
+						"%.pyc$",
+						"%.mypy_cache/",
+						"%.pytest_cache/",
+						"%.ruff_cache/",
+						"dist/",
+						"build/",
+						"%.egg%-info/",
+						"node_modules/",
+					},
+					vimgrep_arguments = {
+						"rg",
+						"--color=never",
+						"--no-heading",
+						"--with-filename",
+						"--line-number",
+						"--column",
+						"--smart-case",
+						"--glob=!.venv/**",
+						"--glob=!venv/**",
+						"--glob=!__pycache__/**",
+						"--glob=!.git/**",
+						"--glob=!node_modules/**",
+					},
+					preview = {
+						treesitter = false,
 					},
 				},
 				extensions = {
 					frecency = {
+						auto_validate = false,
+						db_safe_mode = false,
 						show_score = false,
 						show_unindexed = true,
-						-- ignore_patterns = { "*.git/*", "*/tmp/*" },
 						disable_devicons = false,
 						path_display = filenameFirst,
+						workspace_scan_cmd = {
+							"fd",
+							"--type", "f",
+							"--hidden",
+							"--exclude", ".git",
+							"--exclude", ".venv",
+							"--exclude", "venv",
+							"--exclude", "env",
+							"--exclude", "__pycache__",
+							"--exclude", ".mypy_cache",
+							"--exclude", ".pytest_cache",
+							"--exclude", ".ruff_cache",
+							"--exclude", "node_modules",
+							"--exclude", "dist",
+							"--exclude", "build",
+						},
 						recency_values = {
-							{ age = 1, value = 500 }, -- past 20 mins
+							{ age = 1, value = 500 }, -- past 1 min
 							{ age = 20, value = 300 }, -- past 20 mins
 							{ age = 240, value = 100 }, -- past 4 hours
 							{ age = 1440, value = 80 }, -- past day
@@ -86,7 +131,7 @@ return {
 					},
 				},
 			})
-			-- require("telescope").load_extension "frecency"
+			require("telescope").load_extension("frecency")
 		end,
 		enabled = vim.g.vscode == nil,
 	},

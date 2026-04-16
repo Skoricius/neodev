@@ -2,6 +2,7 @@ return {
 	-- Mason: installs LSP servers
 	{
 		"williamboman/mason.nvim",
+		event = "BufReadPre",
 		config = function()
 			require("mason").setup({})
 		end,
@@ -11,6 +12,7 @@ return {
 	-- mason-lspconfig: bridges mason with Neovim's built-in LSP
 	{
 		"williamboman/mason-lspconfig.nvim",
+		event = "BufReadPre",
 		dependencies = {
 			"neovim/nvim-lspconfig",
 			"williamboman/mason.nvim",
@@ -78,6 +80,7 @@ return {
 	-- Completion
 	{
 		"hrsh7th/nvim-cmp",
+		event = "InsertEnter",
 		dependencies = {
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
@@ -116,6 +119,7 @@ return {
 	-- LSP keymaps + format-on-save via autocmds
 	{
 		"neovim/nvim-lspconfig",
+		event = "BufReadPre",
 		config = function()
 			-- Keymaps on attach
 			vim.api.nvim_create_autocmd("LspAttach", {

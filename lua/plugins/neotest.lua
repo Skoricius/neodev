@@ -1,5 +1,15 @@
 return {
 	"nvim-neotest/neotest",
+	keys = {
+		{ "<leader>yr", desc = "Neotest: run nearest" },
+		{ "<leader>yf", desc = "Neotest: run file" },
+		{ "<leader>yt", desc = "Neotest: stop" },
+		{ "<leader>yd", desc = "Neotest: debug nearest" },
+		{ "<leader>yp", desc = "Neotest: toggle output panel" },
+		{ "<leader>ys", desc = "Neotest: toggle summary" },
+		{ "<leader>yo", desc = "Neotest: open output" },
+		{ "<leader>ya", desc = "Neotest: attach" },
+	},
 	dependencies = {
 		"nvim-neotest/nvim-nio",
 		"nvim-lua/plenary.nvim",
