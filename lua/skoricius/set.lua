@@ -1,6 +1,12 @@
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
+-- Disable unused providers to avoid slow startup (especially python3 probe on .py files)
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4

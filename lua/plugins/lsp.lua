@@ -28,24 +28,27 @@ return {
 			local python_utils = require("utilities.python")
 			vim.lsp.config("pylsp", {
 				on_init = function(client)
-					if python_utils.is_poetry_installed() then
-						local poetry_env = python_utils.get_poetry_project_path()
-						if poetry_env then
-							local pylint_args = string.format(
-								"--init-hook='import sys; sys.path.append(\"%s\")'",
-								python_utils.get_poetry_site_packages()
-							)
-							table.insert(
-								client.config.settings.pylsp.plugins.pylint.args,
-								pylint_args
-							)
-							client.notify(
-								"workspace/didChangeConfiguration",
-								{ settings = client.config.settings }
-							)
-							return true
-						end
-					end
+					python_utils.is_poetry_installed(function(installed)
+						if not installed then return end
+						python_utils.get_poetry_project_path(function(poetry_env)
+							if not poetry_env then return end
+							python_utils.get_poetry_site_packages(function(site_packages)
+								if not site_packages then return end
+								local pylint_args = string.format(
+									"--init-hook='import sys; sys.path.append(\"%s\")'",
+									site_packages
+								)
+								table.insert(
+									client.config.settings.pylsp.plugins.pylint.args,
+									pylint_args
+								)
+								client.notify(
+									"workspace/didChangeConfiguration",
+									{ settings = client.config.settings }
+								)
+							end)
+						end)
+					end)
 				end,
 				settings = {
 					pylsp = {
