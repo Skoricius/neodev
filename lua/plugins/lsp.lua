@@ -2,7 +2,7 @@ return {
 	-- Mason: installs LSP servers
 	{
 		"williamboman/mason.nvim",
-		event = "BufReadPre",
+		lazy = false,
 		config = function()
 			require("mason").setup({})
 		end,
@@ -12,36 +12,81 @@ return {
 	-- mason-lspconfig: bridges mason with Neovim's built-in LSP
 	{
 		"williamboman/mason-lspconfig.nvim",
-		event = "BufReadPre",
+		lazy = false,
 		dependencies = {
 			"neovim/nvim-lspconfig",
 			"williamboman/mason.nvim",
 			"hrsh7th/cmp-nvim-lsp",
 		},
 		config = function()
-			-- Give all servers nvim-cmp capabilities
-			vim.lsp.config("*", {
-				capabilities = require("cmp_nvim_lsp").default_capabilities(),
-			})
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local lspconfig = require("lspconfig")
 
-			-- pyright: detects activated venvs automatically via VIRTUAL_ENV env var
-			vim.lsp.config("pyright", {
-				settings = {
-					python = {
-						analysis = {
-							autoImportCompletions = true,
-							typeCheckingMode      = "basic",
-						},
-					},
-				},
-			})
+			-- pyright: resolve python interpreter from project venv (uv/poetry/plain venv)
+			local function get_python_path(workspace)
+				if vim.env.VIRTUAL_ENV then
+					return vim.env.VIRTUAL_ENV .. "/bin/python"
+				end
+				local uv_python = workspace .. "/.venv/bin/python"
+				if vim.fn.executable(uv_python) == 1 then
+					return uv_python
+				end
+				return nil
+			end
 
-			-- Auto-enable every server mason-lspconfig knows about
 			require("mason-lspconfig").setup({
 				ensure_installed = { "lua_ls", "rust_analyzer", "pyright" },
 				handlers = {
+					-- default handler: just add capabilities
 					function(server_name)
-						vim.lsp.enable(server_name)
+						lspconfig[server_name].setup({ capabilities = capabilities })
+					end,
+					-- pyright: also resolve python path
+					pyright = function()
+						lspconfig.pyright.setup({
+							capabilities = capabilities,
+							on_init = function(client)
+								local workspace = client.config.root_dir or vim.fn.getcwd()
+								local python_path = get_python_path(workspace)
+								if python_path then
+									client.config.settings = vim.tbl_deep_extend("force",
+										client.config.settings or {},
+										{ python = { pythonPath = python_path } }
+									)
+									client.notify("workspace/didChangeConfiguration",
+										{ settings = client.config.settings })
+									return
+								end
+								if vim.fn.filereadable(workspace .. "/poetry.lock") == 1 then
+									vim.system(
+										{ "poetry", "env", "info", "--path" },
+										{ cwd = workspace, text = true },
+										function(result)
+											if result.code == 0 then
+												local venv = result.stdout:gsub("%s+$", "")
+												local path = venv .. "/bin/python"
+												vim.schedule(function()
+													client.config.settings = vim.tbl_deep_extend("force",
+														client.config.settings or {},
+														{ python = { pythonPath = path } }
+													)
+													client.notify("workspace/didChangeConfiguration",
+														{ settings = client.config.settings })
+												end)
+											end
+										end
+									)
+								end
+							end,
+							settings = {
+								python = {
+									analysis = {
+										autoImportCompletions = true,
+										typeCheckingMode      = "basic",
+									},
+								},
+							},
+						})
 					end,
 				},
 			})
