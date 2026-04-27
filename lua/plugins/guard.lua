@@ -26,6 +26,7 @@ return {
 			end
 			-- :lint('pylint')
 			ft("typescript,javascript,typescriptreact,solidity"):fmt("prettier")
+		ft("json"):fmt("prettier")
 			ft("lua"):fmt("lsp"):append("stylua")
 
 			-- Call setup() LAST!

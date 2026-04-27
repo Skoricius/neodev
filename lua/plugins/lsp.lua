@@ -24,44 +24,13 @@ return {
 				capabilities = require("cmp_nvim_lsp").default_capabilities(),
 			})
 
-			-- pylsp: full settings (replaces require("lspconfig").pylsp.setup)
-			local python_utils = require("utilities.python")
-			vim.lsp.config("pylsp", {
-				on_init = function(client)
-					python_utils.is_poetry_installed(function(installed)
-						if not installed then return end
-						python_utils.get_poetry_project_path(function(poetry_env)
-							if not poetry_env then return end
-							python_utils.get_poetry_site_packages(function(site_packages)
-								if not site_packages then return end
-								local pylint_args = string.format(
-									"--init-hook='import sys; sys.path.append(\"%s\")'",
-									site_packages
-								)
-								table.insert(
-									client.config.settings.pylsp.plugins.pylint.args,
-									pylint_args
-								)
-								client.notify(
-									"workspace/didChangeConfiguration",
-									{ settings = client.config.settings }
-								)
-							end)
-						end)
-					end)
-				end,
+			-- pyright: detects activated venvs automatically via VIRTUAL_ENV env var
+			vim.lsp.config("pyright", {
 				settings = {
-					pylsp = {
-						plugins = {
-							black           = { enabled = true },
-							flake8          = { enabled = false },
-							pylint          = { enabled = true, args = {} },
-							ruff            = { enabled = false },
-							pyflakes        = { enabled = false },
-							pycodestyle     = { enabled = false },
-							pylsp_mypy      = { enabled = true },
-							jedi_completion = { fuzzy = true },
-							pyls_isort      = { enabled = true },
+					python = {
+						analysis = {
+							autoImportCompletions = true,
+							typeCheckingMode      = "basic",
 						},
 					},
 				},
@@ -69,7 +38,7 @@ return {
 
 			-- Auto-enable every server mason-lspconfig knows about
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "rust_analyzer", "pylsp" },
+				ensure_installed = { "lua_ls", "rust_analyzer", "pyright" },
 				handlers = {
 					function(server_name)
 						vim.lsp.enable(server_name)
@@ -146,7 +115,6 @@ return {
 
 			-- Format on save (replaces lsp-zero's format_on_save)
 			local fmt_servers = {
-				pylsp         = { "python" },
 				rust_analyzer = { "rust" },
 				lua_ls        = { "lua" },
 				clangd        = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
