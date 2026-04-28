@@ -31,7 +31,9 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 vim.opt.wrap = false
 
-vim.opt.colorcolumn = "89"
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldenable = false -- folds open by default
 vim.opt.title = true
 local titlestring = ""
 titlestring = titlestring .. "%{substitute(getcwd(),$HOME,'~','')}"
