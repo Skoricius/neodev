@@ -143,7 +143,18 @@ return {
 				callback = function(event)
 					local opts = { buffer = event.buf, remap = false }
 
-					vim.keymap.set("n", "gd",          vim.lsp.buf.definition,       opts)
+					vim.keymap.set("n", "gd", function()
+						vim.lsp.buf.definition({
+							on_list = function(options)
+								if #options.items == 1 then
+									vim.lsp.util.jump_to_location(options.items[1], "utf-8")
+								else
+									vim.fn.setqflist({}, " ", options)
+									vim.cmd("cfirst")
+								end
+							end,
+						})
+					end, opts)
 					vim.keymap.set("n", "K",           vim.lsp.buf.hover,            opts)
 					vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
 					vim.keymap.set("n", "<leader>vd",  vim.diagnostic.open_float,    opts)

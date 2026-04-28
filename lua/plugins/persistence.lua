@@ -14,6 +14,21 @@ return {
       return vim.fn.getcwd()
     end
 
+    local function neotree_is_open()
+      for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        if vim.bo[buf].filetype == "neo-tree" then
+          return true
+        end
+      end
+      return false
+    end
+
+    local function get_neotree_flag_path(dir)
+      local escaped = (dir or get_session_dir()):gsub("[/\\:]", "%%")
+      return vim.fn.expand(vim.fn.stdpath("state") .. "/sessions/" .. escaped .. ".neotree")
+    end
+
     -- Auto-restore on startup when no file args, or only a directory arg
     local function should_restore()
       if vim.fn.argc() == 0 then return true end
@@ -38,7 +53,20 @@ return {
               end
             end
             local dir = get_session_dir()
-            require("persistence").load({ dir = dir })
+            local session_file = require("persistence").current({ dir = dir })
+            local has_session = session_file and vim.fn.filereadable(session_file) == 1
+
+            if has_session then
+              require("persistence").load({ dir = dir })
+              -- Re-open neo-tree only if it was open when the session was saved
+              local flag_path = get_neotree_flag_path(dir)
+              if vim.fn.filereadable(flag_path) == 1 then
+                vim.cmd("Neotree show")
+              end
+            else
+              -- No prior session: open neo-tree by default
+              vim.cmd("Neotree show")
+            end
           end)
         end,
         nested = true,
@@ -46,6 +74,15 @@ return {
     end
 
     local function cleanup_and_save()
+      -- Record whether neo-tree was visible before wiping it
+      local flag_path = get_neotree_flag_path()
+      if neotree_is_open() then
+        local f = io.open(flag_path, "w")
+        if f then f:write("1") f:close() end
+      else
+        os.remove(flag_path)
+      end
+
       for _, buf in ipairs(vim.api.nvim_list_bufs()) do
         local bt = vim.bo[buf].buftype
         local ft = vim.bo[buf].filetype
