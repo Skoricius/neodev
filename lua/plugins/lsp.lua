@@ -121,7 +121,13 @@ return {
 					["<Tab>"]   = cmp.mapping.confirm({ select = true }),
 					["<C-m>"]   = cmp.mapping.complete(),
 					["<C-e>"]   = cmp.mapping.close(),
-					["<Esc>"]   = cmp.mapping.close(),
+					["<Esc>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.close()
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
 					["<CR>"]    = cmp.mapping.confirm({ select = true }),
 					["<Right>"] = cmp.mapping.confirm({
 						behavior = cmp.ConfirmBehavior.Replace,

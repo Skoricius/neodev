@@ -37,6 +37,11 @@ return {
 
 			require("telescope").setup({
 				defaults = {
+					mappings = {
+						i = {
+							["<Esc>"] = require("telescope.actions").close,
+						},
+					},
 					-- git_worktrees = vim.g.git_worktrees,
 					-- path_display = { "shorten" },
 					sorting_strategy = "ascending",

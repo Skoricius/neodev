@@ -2,6 +2,7 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>bn", "<cmd>bn<cr>")
 vim.keymap.set("n", "<leader>bp", "<cmd>bp<cr>")
 vim.keymap.set("n", "<leader>bd", "<cmd>bd<cr>")
+vim.keymap.set("n", "<leader>tc", "<cmd>tabc<cr>")
 
 vim.keymap.set("n", "<leader>w", "<cmd> set wrap!<cr>")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -39,6 +40,7 @@ vim.keymap.set("c", "£", "#")
 
 -- Navigating splits
 vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-w>h", "<cmd>sp<cr>")
 vim.keymap.set("n", "<C-j>", "<C-w>j")
 vim.keymap.set("n", "<C-k>", "<C-w>k")
 vim.keymap.set("n", "<C-l>", "<C-w>l")
