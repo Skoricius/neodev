@@ -1,8 +1,11 @@
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
--- Disable unused providers to avoid slow startup (especially python3 probe on .py files)
-vim.g.loaded_python3_provider = 0
+-- Disable unused providers to avoid slow startup
+-- NOTE: python3 provider is intentionally NOT disabled here:
+-- molten-nvim is a remote plugin that requires the python3 provider.
+-- Point explicitly at pyenv python so pynvim/jupyter_client are found.
+vim.g.python3_host_prog = vim.env.HOME .. "/.pyenv/versions/3.11.4/bin/python3"
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0

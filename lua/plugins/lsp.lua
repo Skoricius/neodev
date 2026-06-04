@@ -106,6 +106,8 @@ return {
 			"hrsh7th/cmp-nvim-lua",
 			"L3MON4D3/LuaSnip",
 			"rafamadriz/friendly-snippets",
+			-- otter: completion inside embedded code cells (notebooks)
+			"jmbuhr/otter.nvim",
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -113,6 +115,7 @@ return {
 			cmp.setup({
 				sources = {
 					{ name = "nvim_lsp" },
+					{ name = "otter" }, -- completion inside notebook cells
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<C-p>"]   = cmp.mapping.select_prev_item(cmp_select),

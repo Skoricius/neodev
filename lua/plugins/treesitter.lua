@@ -1,28 +1,25 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = "BufReadPost",
+		branch = "main",
+		lazy = false,
 		build = ":TSUpdate",
+		enabled = vim.g.vscode == nil,
 		config = function()
-			require("nvim-treesitter.configs").setup({
-				-- A list of parser names, or "all"
-				ensure_installed = { "vimdoc", "python", "c", "lua", "rust", "markdown", "markdown_inline", "json" },
-
-				-- Install parsers synchronously (only applied to `ensure_installed`)
-				sync_install = false,
-
-				-- Automatically install missing parsers when entering buffer
-				-- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-				auto_install = true,
-
-				highlight = {
-					-- `false` will disable the whole extension
-					enable = true,
-					disable = { "csv" },
-				},
-				indent = { enable = true },
+			require("nvim-treesitter").setup({
+				install_dir = vim.fn.stdpath("data") .. "/site",
+			})
+			-- Install parsers (no-op if already installed)
+			require("nvim-treesitter").install({
+				"vimdoc",
+				"python",
+				"c",
+				"lua",
+				"rust",
+				"markdown",
+				"markdown_inline",
+				"json",
 			})
 		end,
-		enable = vim.g.vscode == nil,
 	},
 }
