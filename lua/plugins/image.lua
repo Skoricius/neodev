@@ -2,7 +2,7 @@ return {
 	{
 		"3rd/image.nvim",
 		lazy = false,
-		enabled = vim.g.vscode == nil,
+		enabled = vim.g.vscode == nil and vim.fn.has("mac") == 1,
 		opts = {
 			backend = "kitty", -- iTerm2 uses the kitty protocol via its own implementation
 			-- For iTerm2, set TERM_PROGRAM=iTerm.app or use integrations below
